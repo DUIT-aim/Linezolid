@@ -84,7 +84,7 @@ if st.button("Predict"):
     ytrain=df.LIT
     x_train=df.drop('LIT',axis=1)
     from sklearn.preprocessing import StandardScaler
-    continuous_cols = [1,10]
+    continuous_cols = feature_names
     xtrain = x_train.copy()
     scaler = StandardScaler()
     xtrain.iloc[:, continuous_cols] = scaler.fit_transform(x_train.iloc[:, continuous_cols])
