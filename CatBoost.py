@@ -74,6 +74,36 @@ if st.button("Predict"):
     st.write(f"**High Exposure Probability:** {prob_class1:.1%}")
     st.write(f"**Decision Threshold:** {OPTIMAL_THRESHOLD:.0%} (optimized for clinical utility)")
     st.write(f"**Predicted Class:** {predicted_class} (1: High risk, 0: Low risk)")
+    if predicted_class == 1:  
+      advice = (
+          
+            f"According to our model, you have a high risk of developing thrombocytopenia after taking linezolid. "
+          
+            f"The model predicts that your probability of having thrombocytopenia is {prob_class1:.1f}%. "
+          
+            "While this is just an estimate, it suggests that you may be at significant risk. "
+          
+            "I recommend that you consult a clinician as soon as possible for further evaluation and "
+          
+            "to ensure you receive an accurate diagnosis and necessary treatment."
+          
+        )
+      st.write(advice)
+    else: 
+      advice = (
+          
+            f"According to our model, you have a low risk of developing thrombocytopenia after taking linezolid. "
+          
+            f"The model predicts that your probability of having thrombocytopenia is {(1 - prob_class1):.1f}%. "
+          
+            "However, maintaining a healthy lifestyle is still very important. "
+          
+            "I recommend regular check-ups to monitor your health, "
+          
+            "and to seek medical advice promptly if you experience any symptoms."
+          
+        )
+      st.write(advice)
 
     # SHAP Explanation
     st.subheader("SHAP Force Plot Explanation")
@@ -99,36 +129,8 @@ if st.button("Predict"):
 
 # Display the SHAP force plot for the predicted class    
     if predicted_class == 1:  
-      advice = (
-          
-            f"According to our model, you have a high risk of developing thrombocytopenia after taking linezolid. "
-          
-            f"The model predicts that your probability of having thrombocytopenia is {prob_class1:.1f}%. "
-          
-            "While this is just an estimate, it suggests that you may be at significant risk. "
-          
-            "I recommend that you consult a clinician as soon as possible for further evaluation and "
-          
-            "to ensure you receive an accurate diagnosis and necessary treatment."
-          
-        )
-      st.write(advice)
       shap.force_plot(explainer_shap.expected_value[1], shap_values[:,:,1], original_feature_values, matplotlib=True) 
     else: 
-      advice = (
-          
-            f"According to our model, you have a low risk of developing thrombocytopenia after taking linezolid. "
-          
-            f"The model predicts that your probability of having thrombocytopenia is {(1 - prob_class1):.1f}%. "
-          
-            "However, maintaining a healthy lifestyle is still very important. "
-          
-            "I recommend regular check-ups to monitor your health, "
-          
-            "and to seek medical advice promptly if you experience any symptoms."
-          
-        )
-      st.write(advice)
       shap.force_plot(explainer_shap.expected_value[0], shap_values[:,:,0], original_feature_values, matplotlib=True)
     plt.savefig("shap_force_plot.png", bbox_inches='tight', dpi=1200)    
     st.image("shap_force_plot.png", caption='SHAP Force Plot Explanation')
