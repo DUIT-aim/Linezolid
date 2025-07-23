@@ -63,8 +63,8 @@ if st.button("Predict"):
     OPTIMAL_THRESHOLD = 0.338
     
     # Predict class and probabilities    
-    #predicted_class = model.predict(final_features_df)[0]   
-    predicted_proba = model.predict_proba(final_features_df)[0]
+    #predicted_class = CatBC.predict(final_features_df)[0]   
+    predicted_proba = CatBC.predict_proba(final_features_df)[0]
     prob_class1 = predicted_proba[1]  # 类别1的概率
 
     # 根据最优阈值判断类别
@@ -89,7 +89,7 @@ if st.button("Predict"):
     scaler = StandardScaler()
     xtrain.iloc[:, continuous_cols] = scaler.fit_transform(x_train.iloc[:, continuous_cols])
 
-    explainer_shap = shap.TreeExplainer(model.predict_proba, xtrain)
+    explainer_shap = shap.TreeExplainer(CatBC.predict_proba, xtrain)
     
     # 获取SHAP值
     shap_values = explainer_shap.shap_values(pd.DataFrame(final_features_df,columns=feature_names))
