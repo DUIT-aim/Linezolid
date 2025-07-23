@@ -77,7 +77,7 @@ if st.button("Predict"):
     if predicted_class == 1:  
       advice = (
           
-            f"According to our model, you have a high risk of developing thrombocytopenia after taking linezolid. "
+            f"According to the model, you have a high risk of developing thrombocytopenia after taking linezolid. "
           
             f"The model predicts that your probability of having thrombocytopenia is {prob_class1:.1f}%. "
           
@@ -92,7 +92,7 @@ if st.button("Predict"):
     else: 
       advice = (
           
-            f"According to our model, you have a low risk of developing thrombocytopenia after taking linezolid. "
+            f"According to the model, you have a low risk of developing thrombocytopenia after taking linezolid. "
           
             f"The model predicts that your probability of having thrombocytopenia is {(1 - prob_class1):.1f}%. "
           
