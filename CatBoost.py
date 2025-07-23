@@ -103,7 +103,7 @@ if st.button("Predict"):
           
             f"According to our model, you have a high risk of developing thrombocytopenia after taking linezolid. "
           
-            f"The model predicts that your probability of having thrombocytopenia is {probability:.1f}%. "
+            f"The model predicts that your probability of having thrombocytopenia is {prob_class1:.1f}%. "
           
             "While this is just an estimate, it suggests that you may be at significant risk. "
           
@@ -112,13 +112,14 @@ if st.button("Predict"):
             "to ensure you receive an accurate diagnosis and necessary treatment."
           
         )
-        shap.force_plot(explainer_shap.expected_value[1], shap_values[:,:,1], original_feature_values, matplotlib=True)    
+      shap.force_plot(explainer_shap.expected_value[1], shap_values[:,:,1], original_feature_values, matplotlib=True) 
+      st.pyplot(fig)
     else: 
       advice = (
           
             f"According to our model, you have a low risk of developing thrombocytopenia after taking linezolid. "
           
-            f"The model predicts that your probability of not having thrombocytopenia is {probability:.1f}%. "
+            f"The model predicts that your probability of not having thrombocytopenia is {(1 - prob_class1):.1f}%. "
           
             "However, maintaining a healthy lifestyle is still very important. "
           
@@ -127,7 +128,8 @@ if st.button("Predict"):
             "and to seek medical advice promptly if you experience any symptoms."
           
         )
-        shap.force_plot(explainer_shap.expected_value[0], shap_values[:,:,0], original_feature_values, matplotlib=True)   
+      shap.force_plot(explainer_shap.expected_value[0], shap_values[:,:,0], original_feature_values, matplotlib=True)
+      st.pyplot(fig)
     st.write(advice)
     plt.savefig("shap_force_plot.png", bbox_inches='tight', dpi=1200)    
     st.image("shap_force_plot.png", caption='SHAP Force Plot Explanation')
