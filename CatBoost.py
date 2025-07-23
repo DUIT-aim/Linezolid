@@ -80,7 +80,7 @@ if st.button("Predict"):
 
     # 创建SHAP解释器
     # 假设 x_train 是用于训练模型的特征数据
-    df=pd.read_csv(r"C:\Users\86178\Documents\临床药学专硕\利奈唑胺\LZD（纳入代谢组学）\训练集.csv",encoding='utf8')
+    df=pd.read_csv('train_lasso.csv',encoding='utf8')
     ytrain=df.LIT
     x_train=df.drop('LIT',axis=1)
     from sklearn.preprocessing import StandardScaler
